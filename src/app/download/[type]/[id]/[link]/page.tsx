@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FiArrowLeft, FiAlertTriangle } from 'react-icons/fi';
+import Script from 'next/script';
 
 export default function DownloadProcessingPage() {
   const router = useRouter();
@@ -29,7 +30,14 @@ export default function DownloadProcessingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-netflix-black pt-16 sm:pt-20 pb-8 sm:pb-12 px-4">
+    <>
+      {/* Ad Script - loads in head */}
+      <Script
+        src="https://pl28437089.effectivegatecpm.com/13/ba/2a/13ba2a458a513d263d79ef92472458dd.js"
+        strategy="afterInteractive"
+      />
+      
+      <div className="min-h-screen bg-netflix-black pt-16 sm:pt-20 pb-8 sm:pb-12 px-4">
       {/* Ad Section 1 */}
       <div className="max-w-4xl mx-auto mb-4 sm:mb-8">
         <div className="bg-netflix-dark-gray border border-gray-700 rounded-lg p-4 sm:p-8 text-center">
@@ -154,5 +162,6 @@ export default function DownloadProcessingPage() {
         </p>
       </div>
     </div>
+    </>
   );
 }

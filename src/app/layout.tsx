@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import { ReduxProvider } from '@/components/providers/ReduxProvider';
 import Navbar from '@/components/layout/Navbar';
@@ -26,12 +27,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://pl28437089.effectivegatecpm.com/13/ba/2a/13ba2a458a513d263d79ef92472458dd.js"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${inter.className} bg-netflix-black min-h-screen flex flex-col`}>
         <ReduxProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
         </ReduxProvider>
+        {/* Social Bar Ad - loads at bottom of body */}
+        <Script
+          src="https://pl28437189.effectivegatecpm.com/e6/2e/ca/e62eca42f9bc6194985666346594514c.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

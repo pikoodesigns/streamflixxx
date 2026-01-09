@@ -9,6 +9,7 @@ import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { addToWatchlist, removeFromWatchlist, selectIsInWatchlist } from '@/store/slices/watchlistSlice';
 import { getImageUrl, getTitle, getReleaseYear, getMediaType } from '@/lib/tmdb';
 import { debounce } from '@/lib/utils';
+import AdBanner from '@/components/ads/AdBanner';
 import type { Movie } from '@/types';
 
 interface SearchClientProps {
@@ -82,11 +83,18 @@ export default function SearchClient({ query: initialQuery, results, error }: Se
           <h2 className="text-xl text-white font-semibold mb-6">
             Results for "{initialQuery}"
           </h2>
+          
+          {/* Ad before results */}
+          <AdBanner type="native" className="mb-8" />
+          
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {results.map((item, index) => (
               <SearchResultCard key={`${item.id}-${item.media_type}`} item={item} index={index} />
             ))}
           </div>
+          
+          {/* Ad after results */}
+          <AdBanner type="banner300x250" className="mt-8" />
         </div>
       )}
     </div>

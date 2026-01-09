@@ -3,6 +3,7 @@
 import { useAppSelector } from '@/store/hooks';
 import Hero from '@/components/home/Hero';
 import MovieRow from '@/components/movies/MovieRow';
+import AdBanner from '@/components/ads/AdBanner';
 import type { Movie } from '@/types';
 
 interface Section {
@@ -49,14 +50,22 @@ export default function HomeClient({ sections, featuredMovie }: HomeClientProps)
           />
         )}
 
-        {/* Movie Sections */}
-        {sections.map(section => (
-          <MovieRow
-            key={section.id}
-            title={section.title}
-            movies={section.movies}
-            showRank={section.showRank}
-          />
+        {/* Movie Sections with Ads */}
+        {sections.map((section, index) => (
+          <div key={section.id}>
+            <MovieRow
+              title={section.title}
+              movies={section.movies}
+              showRank={section.showRank}
+            />
+            {/* Insert ad after every 3rd row */}
+            {(index + 1) % 3 === 0 && index < sections.length - 1 && (
+              <AdBanner 
+                type={index % 6 === 2 ? 'native' : 'banner300x250'} 
+                className="my-6 sm:my-8"
+              />
+            )}
+          </div>
         ))}
       </div>
     </div>

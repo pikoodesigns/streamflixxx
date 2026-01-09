@@ -10,6 +10,7 @@ import { addToWatchlist, removeFromWatchlist, selectIsInWatchlist } from '@/stor
 import { getImageUrl, getTitle, getReleaseYear, getTrailer } from '@/lib/tmdb';
 import { formatDuration } from '@/lib/utils';
 import MovieRow from '@/components/movies/MovieRow';
+import AdBanner from '@/components/ads/AdBanner';
 import type { MovieDetails, Video } from '@/types';
 
 interface MovieDetailClientProps {
@@ -258,12 +259,19 @@ export default function MovieDetailClient({ movie, mediaType }: MovieDetailClien
 
       {/* Similar & Recommendations */}
       <div className="pb-8 sm:pb-12">
+        {/* Ad before recommendations */}
+        <AdBanner type="native" className="my-6 sm:my-8 px-4 md:px-8 lg:px-12" />
+        
         {movie.similar?.results && movie.similar.results.length > 0 && (
           <MovieRow
             title="More Like This"
             movies={movie.similar.results}
           />
         )}
+        
+        {/* Ad between sections */}
+        <AdBanner type="banner300x250" className="my-6 sm:my-8" />
+        
         {movie.recommendations?.results && movie.recommendations.results.length > 0 && (
           <MovieRow
             title="Recommended For You"

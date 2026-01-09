@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import MovieRow from '@/components/movies/MovieRow';
+import AdBanner from '@/components/ads/AdBanner';
 import type { Movie } from '@/types';
 
 interface NewPopularClientProps {
@@ -85,12 +86,19 @@ export default function NewPopularClient({
 
       {/* Additional Sections */}
       <div className="mt-8">
+        {/* Ad banner */}
+        <AdBanner type="native" className="my-6 sm:my-8" />
+        
         {activeTab !== 'trending' && (
           <MovieRow title="Trending This Week" movies={trendingToday} />
         )}
         {activeTab !== 'movies' && (
           <MovieRow title="Top Movies" movies={popularMovies} showRank />
         )}
+        
+        {/* Ad banner */}
+        <AdBanner type="banner300x250" className="my-6 sm:my-8" />
+        
         {activeTab !== 'tv' && (
           <MovieRow title="Top TV Shows" movies={popularTV} showRank />
         )}

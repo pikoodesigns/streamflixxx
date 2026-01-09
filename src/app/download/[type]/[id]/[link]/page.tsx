@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FiArrowLeft, FiAlertTriangle } from 'react-icons/fi';
@@ -11,6 +11,7 @@ export default function DownloadProcessingPage() {
   const params = useParams();
   const [timeLeft, setTimeLeft] = useState(10);
   const [isComplete, setIsComplete] = useState(false);
+  const adContainerRef = useRef<HTMLDivElement>(null);
 
   const linkNumber = params.link as string;
 
@@ -25,16 +26,37 @@ export default function DownloadProcessingPage() {
     }
   }, [timeLeft]);
 
+  // Load 300x250 banner ad into the container
+  useEffect(() => {
+    if (adContainerRef.current && !adContainerRef.current.hasChildNodes()) {
+      // Set atOptions on window
+      (window as any).atOptions = {
+        'key': 'd38148816b162d8fa23e7fb2ec10374f',
+        'format': 'iframe',
+        'height': 250,
+        'width': 300,
+        'params': {}
+      };
+
+      // Create and inject script
+      const script = document.createElement('script');
+      script.src = 'https://www.highperformanceformat.com/d38148816b162d8fa23e7fb2ec10374f/invoke.js';
+      script.async = true;
+      adContainerRef.current.appendChild(script);
+    }
+  }, []);
+
   const handleBack = () => {
     router.back();
   };
 
   return (
     <>
-      {/* Ad Script - loads in head */}
+      {/* Ad Scripts - Popunder is in global layout, these are page-specific */}
       <Script
-        src="https://pl28437089.effectivegatecpm.com/13/ba/2a/13ba2a458a513d263d79ef92472458dd.js"
+        src="https://pl28437139.effectivegatecpm.com/5d86b8760678d939397f93a2f6ec1958/invoke.js"
         strategy="afterInteractive"
+        async
       />
       
       <div className="min-h-screen bg-netflix-black pt-16 sm:pt-20 pb-8 sm:pb-12 px-4">
@@ -42,9 +64,7 @@ export default function DownloadProcessingPage() {
       <div className="max-w-4xl mx-auto mb-4 sm:mb-8">
         <div className="bg-netflix-dark-gray border border-gray-700 rounded-lg p-4 sm:p-8 text-center">
           <p className="text-netflix-gray text-xs sm:text-sm mb-2">Advertisement</p>
-          <div className="h-20 sm:h-24 md:h-32 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded flex items-center justify-center">
-            <p className="text-netflix-light-gray text-sm sm:text-lg">Ad Space 1</p>
-          </div>
+          <div id="container-5d86b8760678d939397f93a2f6ec1958"></div>
         </div>
       </div>
 
@@ -144,13 +164,11 @@ export default function DownloadProcessingPage() {
         </motion.div>
       </div>
 
-      {/* Ad Section 2 */}
+      {/* Ad Section 2 - 300x250 Banner */}
       <div className="max-w-4xl mx-auto mt-4 sm:mt-8">
-        <div className="bg-netflix-dark-gray border border-gray-700 rounded-lg p-4 sm:p-8 text-center">
+        <div className="bg-netflix-dark-gray border border-gray-700 rounded-lg p-4 sm:p-8 flex flex-col items-center justify-center">
           <p className="text-netflix-gray text-xs sm:text-sm mb-2">Advertisement</p>
-          <div className="h-20 sm:h-24 md:h-32 bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800 rounded flex items-center justify-center">
-            <p className="text-netflix-light-gray text-sm sm:text-lg">Ad Space 2</p>
-          </div>
+          <div ref={adContainerRef} className="flex items-center justify-center min-h-[250px] min-w-[300px]"></div>
         </div>
       </div>
 
